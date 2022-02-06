@@ -7,7 +7,6 @@ function Header() {
   const [showAddTask, setShowAddTask] = useState(false)
 
   const handleAdd = () => {
-    // setShouldShowMain(true)
     setShowAddTask(true)
   }
 
@@ -21,7 +20,6 @@ function Header() {
               <Plus />
             </button>
             <button type="button" onClick={() => {}} title="Toggle app theme">
-              {/* <Sun /> */}
               <Moon />
             </button>
           </div>
