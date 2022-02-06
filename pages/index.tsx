@@ -1,5 +1,5 @@
 function Home() {
-  return <div className="text-center my-10 font-bold text-red-400">Homepage</div>
+  return <div className="h-full w-full p-5">Content</div>
 }
 
 export default Home
