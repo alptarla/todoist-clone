@@ -1,4 +1,6 @@
 import { useFormik } from 'formik'
+import { useEffect, useRef } from 'react'
+import { Plus } from 'react-feather'
 import * as Yup from 'yup'
 import { Input, Select } from '../FormElements'
 import Overlay from '../Overlay'
@@ -7,8 +9,19 @@ import { dateList, projectList } from './constants'
 interface IProps {
   setShowAddTask: (show: boolean) => void
 }
-
 function AddTask({ setShowAddTask }: IProps) {
+  const modelRef = useRef<HTMLDivElement>(null)
+
+  // ** Detect outside click. If user click to outside, close this model
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (modelRef.current?.contains(e.target as Node)) return
+      setShowAddTask(false)
+    }
+    document.addEventListener('click', handler)
+    return () => document.removeEventListener('click', handler)
+  }, [setShowAddTask])
+
   const form = useFormik({
     initialValues: {
       task: '',
@@ -28,7 +41,7 @@ function AddTask({ setShowAddTask }: IProps) {
 
   return (
     <Overlay>
-      <div className="w-1/5 rounded bg-white p-5 text-black">
+      <div className="w-1/5 rounded bg-white p-5 text-black" ref={modelRef}>
         <header className="mb-3 flex items-center justify-between">
           <h4>Quick Add Task</h4>
           <button type="button" className="text-2xl" onClick={() => setShowAddTask(false)}>
@@ -68,9 +81,10 @@ function AddTask({ setShowAddTask }: IProps) {
           <button
             disabled={!form.isValid}
             type="submit"
-            className="rounded bg-red-500 px-2 py-1 text-white  disabled:opacity-50"
+            className="flex items-center rounded bg-red-500  px-2 py-1 text-white disabled:opacity-50"
           >
-            Add Task
+            <Plus />
+            <span>Add Task</span>
           </button>
         </form>
       </div>
