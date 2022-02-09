@@ -1,6 +1,6 @@
 import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
 import { db } from '../config/firbease'
-import { ITask } from '../context/Task/types'
+import { ITask } from '../context/TaskContext/types'
 import { makeResObject } from '../helpers'
 
 export async function getTaskById(id: string): Promise<ITask> {
