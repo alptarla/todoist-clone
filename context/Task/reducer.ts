@@ -8,6 +8,16 @@ export const initialState: IState = {
 
 function taskReducer(state = initialState, action: ActionType) {
   switch (action.type) {
+    case 'SET_LOADING':
+      return {
+        ...state,
+        isLoading: action.payload
+      }
+    case 'SET_ERROR':
+      return {
+        ...state,
+        error: action.payload
+      }
     case 'SET_TASKS':
       return {
         ...state,

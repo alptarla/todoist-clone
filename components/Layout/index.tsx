@@ -7,11 +7,11 @@ interface IProps {
 
 function Layout({ children }: IProps) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <header>
         <Header />
       </header>
-      <div className="flex-1 flex item-stretch gap-5">
+      <div className="item-stretch flex flex-1 gap-5">
         <aside className="w-1/4">
           <Sidebar />
         </aside>

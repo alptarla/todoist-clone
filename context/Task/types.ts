@@ -16,6 +16,8 @@ export interface IState {
 export type ActionType =
   | { type: 'SET_TASKS'; payload: ITask[] }
   | { type: 'SET_TASK'; payload: ITask }
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'SET_ERROR'; payload: string }
 
 export interface ITaskContext extends IState {
   createTask: (task: ITask) => void

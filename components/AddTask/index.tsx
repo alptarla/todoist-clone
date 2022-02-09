@@ -1,7 +1,10 @@
 import { useFormik } from 'formik'
+import { nanoid } from 'nanoid'
 import { useEffect, useRef } from 'react'
 import { Plus } from 'react-feather'
+import { BeatLoader } from 'react-spinners'
 import * as Yup from 'yup'
+import useTasks from '../../hooks/useTasks'
 import { Input, Select } from '../FormElements'
 import Overlay from '../Overlay'
 import { dateList, projectList } from './constants'
@@ -9,7 +12,10 @@ import { dateList, projectList } from './constants'
 interface IProps {
   setShowAddTask: (show: boolean) => void
 }
+
 function AddTask({ setShowAddTask }: IProps) {
+  const { createTask, isLoading } = useTasks()
+
   const modelRef = useRef<HTMLDivElement>(null)
 
   // ** Detect outside click. If user click to outside, close this model
@@ -33,11 +39,21 @@ function AddTask({ setShowAddTask }: IProps) {
       date: Yup.string().required('Date is required!'),
       project: Yup.string().required('Project is required!')
     }),
-    onSubmit(values) {
-      console.log('values :>> ', values)
+    async onSubmit(values) {
+      await createTask({ id: nanoid(), ...values })
       setShowAddTask(false)
     }
   })
+
+  const renderButtonContent = () =>
+    isLoading ? (
+      <BeatLoader color="#ffff" size="6px" />
+    ) : (
+      <>
+        <Plus />
+        <span>Add task</span>
+      </>
+    )
 
   return (
     <Overlay>
@@ -83,8 +99,7 @@ function AddTask({ setShowAddTask }: IProps) {
             type="submit"
             className="flex items-center rounded bg-red-500  px-2 py-1 text-white disabled:opacity-50"
           >
-            <Plus />
-            <span>Add Task</span>
+            {renderButtonContent()}
           </button>
         </form>
       </div>
