@@ -21,7 +21,7 @@ export type ActionType =
 
 export interface ITaskContext extends IState {
   createTask: (task: ITask) => void
-  getAllTasks: () => ITask[]
+  getAllTasks: VoidFunction
 }
 
 export interface IProps {
