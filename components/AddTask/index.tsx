@@ -60,13 +60,19 @@ function AddTask({ setShowAddTask }: IProps) {
       <div className="w-1/5 rounded bg-white p-5 text-black" ref={modelRef}>
         <header className="mb-3 flex items-center justify-between">
           <h4>Quick Add Task</h4>
-          <button type="button" className="text-2xl" onClick={() => setShowAddTask(false)}>
+          <button
+            type="button"
+            className="text-2xl"
+            onClick={() => setShowAddTask(false)}
+            data-testid="closeModal"
+          >
             x
           </button>
         </header>
         <form onSubmit={form.handleSubmit}>
           <Input
             name="task"
+            id="task"
             value={form.values.task}
             onChange={form.handleChange}
             placeholder="Enter task title..."

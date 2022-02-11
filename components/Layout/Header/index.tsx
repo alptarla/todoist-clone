@@ -12,7 +12,12 @@ function Header() {
         <nav className="flex items-center justify-between gap-5">
           <Image src="/images/logo.png" alt="Todoist" width="30" height="30" />
           <div>
-            <button type="button" onClick={() => setShowAddTask(true)} className="mr-5">
+            <button
+              type="button"
+              onClick={() => setShowAddTask(true)}
+              className="mr-5"
+              data-testid="openTaskButton"
+            >
               <Plus />
             </button>
             <button type="button" onClick={() => {}} title="Toggle app theme">

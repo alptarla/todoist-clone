@@ -18,8 +18,9 @@ function Select({ options, label, error, ...rest }: IProps) {
       <select
         {...rest}
         className={`w-full rounded border p-2 ${error ? 'border-red-500' : 'border-gray-300'}`}
+        defaultValue="placeholder"
       >
-        <option value="" disabled selected>
+        <option value="placeholder" disabled>
           {rest.placeholder}
         </option>
         {options?.map((item, index) => (
