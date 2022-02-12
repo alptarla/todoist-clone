@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import PageLoader from '../components/PageLoader'
 import Task from '../components/Task'
 import useTasks from '../hooks/useTasks'
 
@@ -8,6 +9,8 @@ function Home() {
   useEffect(() => {
     getAllTasks()
   }, [])
+
+  if (isLoading && !tasks.length) return <PageLoader />
 
   return (
     <div className="h-full w-full p-5">
