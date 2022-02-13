@@ -4,17 +4,16 @@ import { useEffect, useRef } from 'react'
 import { Plus } from 'react-feather'
 import { BeatLoader } from 'react-spinners'
 import * as Yup from 'yup'
+import { DATE_LIST, PROJECT_LIST } from '../../constants'
 import useTasks from '../../hooks/useTasks'
 import { Input, Select } from '../FormElements'
 import Overlay from '../Overlay'
-import { dateList, projectList } from './constants'
-
 interface IProps {
   setShowAddTask: (show: boolean) => void
 }
 
 function AddTask({ setShowAddTask }: IProps) {
-  const { createTask, isLoading } = useTasks()
+  const { createTask, isLoading, setFilters } = useTasks()
 
   const modelRef = useRef<HTMLDivElement>(null)
 
@@ -41,9 +40,16 @@ function AddTask({ setShowAddTask }: IProps) {
     }),
     async onSubmit(values) {
       await createTask({ id: nanoid(), ...values })
+      // ** init filters by newly created task
+      setFilters({ date: values.date, project: values.project })
       setShowAddTask(false)
     }
   })
+
+  const projectOptions = PROJECT_LIST.map((project) => ({
+    ...project,
+    value: project.value.name
+  }))
 
   const renderButtonContent = () =>
     isLoading ? (
@@ -85,7 +91,7 @@ function AddTask({ setShowAddTask }: IProps) {
             id="project_list"
             className="mb-3"
             label="Project"
-            options={projectList}
+            options={projectOptions}
             placeholder="Select project..."
             onChange={form.handleChange}
             error={form.errors.project}
@@ -96,7 +102,7 @@ function AddTask({ setShowAddTask }: IProps) {
             className="mb-3"
             label="Date"
             placeholder="Select date..."
-            options={dateList}
+            options={DATE_LIST}
             onChange={form.handleChange}
             error={form.errors.date}
           />

@@ -11,7 +11,7 @@ function Layout({ children }: IProps) {
       <header>
         <Header />
       </header>
-      <div className="item-stretch flex flex-1 gap-5">
+      <div className="item-stretch container mx-auto flex flex-1">
         <aside className="w-1/4">
           <Sidebar />
         </aside>

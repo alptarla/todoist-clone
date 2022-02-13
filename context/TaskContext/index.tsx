@@ -3,7 +3,7 @@ import { DEFAULT_ERROR_MESSAGE } from '../../constants'
 import useErrors from '../../hooks/useErrors'
 import * as taskService from '../../services/taskService'
 import taskReducer, { initialState } from './reducer'
-import { IProps, ITask, ITaskContext } from './types'
+import { FiltersType, IProps, ITask, ITaskContext } from './types'
 
 export const TaskContext = createContext<ITaskContext>(undefined!)
 
@@ -23,10 +23,10 @@ function TaskContextProvider({ children }: IProps) {
     }
   }
 
-  const getAllTasks = async () => {
+  const getTasks = async (filters?: FiltersType) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true })
-      const tasks = await taskService.getAllTasks()
+      const tasks = await taskService.getTasks(filters)
       dispatch({ type: 'SET_TASKS', payload: tasks })
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: (error as any).message || DEFAULT_ERROR_MESSAGE })
@@ -35,7 +35,9 @@ function TaskContextProvider({ children }: IProps) {
     }
   }
 
-  const providerValue = { ...state, createTask, getAllTasks }
+  const setFilters = (filters: FiltersType) => dispatch({ type: 'SET_FILTERS', payload: filters })
+
+  const providerValue = { ...state, createTask, setFilters, getTasks }
 
   return <TaskContext.Provider value={providerValue}>{children}</TaskContext.Provider>
 }

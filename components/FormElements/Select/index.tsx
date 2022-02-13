@@ -1,7 +1,7 @@
 import { SelectHTMLAttributes } from 'react'
 
 type Option = {
-  value: string | number
+  value: any
   label: string
 }
 

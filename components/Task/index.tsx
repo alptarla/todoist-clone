@@ -10,7 +10,7 @@ function Task({ task }: IProps) {
   const [isCompleted, setIsCompleted] = useState(false)
 
   const taskClassNames = classNames(
-    'mb-5 flex max-w-[900px] cursor-pointer items-center gap-2 rounded border border-gray-100 p-3 shadow-sm transition hover:shadow-md',
+    'mb-5 flex cursor-pointer items-center gap-2 rounded border border-gray-100 p-3 shadow-sm transition hover:shadow-md',
     { 'bg-gray-50': isCompleted }
   )
 

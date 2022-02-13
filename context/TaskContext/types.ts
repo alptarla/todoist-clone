@@ -7,8 +7,11 @@ export interface ITask {
   project: string
 }
 
+export type FiltersType = { date: string; project: string }
+
 export interface IState {
   tasks: ITask[]
+  filters: FiltersType
   isLoading: boolean
   error: string | null
 }
@@ -18,10 +21,12 @@ export type ActionType =
   | { type: 'SET_TASK'; payload: ITask }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string }
+  | { type: 'SET_FILTERS'; payload: FiltersType }
 
 export interface ITaskContext extends IState {
   createTask: (task: ITask) => void
-  getAllTasks: VoidFunction
+  getTasks: (filters?: FiltersType) => void
+  setFilters: (filters: FiltersType) => void
 }
 
 export interface IProps {
