@@ -1,6 +1,7 @@
 import {
   collection,
   CollectionReference,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -21,7 +22,7 @@ export async function getTaskById(id: string): Promise<ITask> {
 }
 
 export async function createTask(task: ITask) {
-  await setDoc(doc(db, 'tasks', task.id), { ...task, isCompleted: false })
+  await setDoc(doc(db, 'tasks', task.id), task)
   return getTaskById(task.id)
 }
 
@@ -43,4 +44,8 @@ export async function getTasks(filters?: FiltersType): Promise<ITask[]> {
 export async function updateTask(taskId: string, fields: any) {
   await updateDoc(doc(db, 'tasks', taskId), { ...fields })
   return getTaskById(taskId)
+}
+
+export async function removeTask(id: string) {
+  await deleteDoc(doc(db, 'tasks', id))
 }

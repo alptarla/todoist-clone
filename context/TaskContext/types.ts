@@ -22,12 +22,14 @@ export type ActionType =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_FILTERS'; payload: FiltersType }
   | { type: 'UPDATE_TASK'; payload: ITask }
+  | { type: 'REMOVE_TASK'; payload: string }
 
 export interface ITaskContext extends IState {
   createTask: (task: ITask) => void
   getTasks: (filters?: FiltersType) => void
   setFilters: (filters: FiltersType) => void
   updateTask: (id: string, fields: any) => void
+  removeTask: (id: string) => void
 }
 
 export interface IProps {

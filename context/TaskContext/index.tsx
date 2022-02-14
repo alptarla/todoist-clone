@@ -47,9 +47,18 @@ function TaskContextProvider({ children }: IProps) {
     }
   }
 
+  const removeTask = async (id: string) => {
+    try {
+      await taskService.removeTask(id)
+      dispatch({ type: 'REMOVE_TASK', payload: id })
+    } catch (error) {
+      setError((error as any).message || DEFAULT_ERROR_MESSAGE)
+    }
+  }
+
   const setFilters = (filters: FiltersType) => dispatch({ type: 'SET_FILTERS', payload: filters })
 
-  const providerValue = { ...state, createTask, setFilters, getTasks, updateTask }
+  const providerValue = { ...state, createTask, setFilters, getTasks, updateTask, removeTask }
 
   return <TaskContext.Provider value={providerValue}>{children}</TaskContext.Provider>
 }

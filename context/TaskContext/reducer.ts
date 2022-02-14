@@ -37,6 +37,11 @@ function taskReducer(state = initialState, action: ActionType) {
         ...state,
         tasks: state.tasks.map((task) => (task.id === action.payload.id ? action.payload : task))
       }
+    case 'REMOVE_TASK':
+      return {
+        ...state,
+        tasks: state.tasks.filter((task) => task.id !== action.payload)
+      }
     default:
       return state
   }

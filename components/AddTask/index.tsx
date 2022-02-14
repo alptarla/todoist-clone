@@ -39,7 +39,7 @@ function AddTask({ setShowAddTask }: IProps) {
       project: Yup.string().required('Project is required!')
     }),
     async onSubmit(values) {
-      await createTask({ id: nanoid(), ...values })
+      await createTask({ id: nanoid(), ...values, isCompleted: false })
       // ** init filters by newly created task
       setFilters({ date: values.date, project: values.project })
       setShowAddTask(false)

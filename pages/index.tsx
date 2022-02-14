@@ -4,7 +4,7 @@ import Task from '../components/Task'
 import useTasks from '../hooks/useTasks'
 
 function Home() {
-  const { tasks, getTasks, isLoading, updateTask, filters } = useTasks()
+  const { tasks, getTasks, isLoading, updateTask, filters, removeTask } = useTasks()
 
   useEffect(() => {
     getTasks(filters)
@@ -19,7 +19,9 @@ function Home() {
         </div>
       )
 
-    return tasks.map((task) => <Task key={task.id} task={task} updateTask={updateTask} />)
+    return tasks.map((task) => (
+      <Task key={task.id} task={task} updateTask={updateTask} removeTask={removeTask} />
+    ))
   }
 
   return (

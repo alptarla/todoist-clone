@@ -1,7 +1,7 @@
 import { Calendar } from 'react-feather'
 import { DATE_LIST, PROJECT_LIST } from '../../../constants'
 import useTasks from '../../../hooks/useTasks'
-import SidebarButton from '../../SidebarButton'
+import SidebarButton from '../../FormElements/Buttons/SidebarButton'
 
 function Sidebar() {
   const { setFilters, filters } = useTasks()

@@ -13,7 +13,9 @@ const sampleTask: ITask = {
 
 test('should be toggle completed status', () => {
   const updateTask = jest.fn()
-  const { getByRole, getByText } = render(<Task task={sampleTask} updateTask={updateTask} />)
+  const { getByRole, getByText } = render(
+    <Task removeTask={jest.fn()} task={sampleTask} updateTask={updateTask} />
+  )
 
   const task = getByText(sampleTask.task)
   const taskCheck = getByRole('checkbox')
@@ -24,4 +26,14 @@ test('should be toggle completed status', () => {
 
   expect(updateTask).toHaveBeenCalledWith(sampleTask.id, { isCompleted: !sampleTask.isCompleted })
   expect(task.classList.contains('line-through')).toBeTruthy()
+})
+
+test('should be open task edit modal, if user click to task text', () => {
+  const { getByText } = render(
+    <Task removeTask={jest.fn()} task={sampleTask} updateTask={jest.fn()} />
+  )
+  const task = getByText(sampleTask.task)
+  userEvent.click(task)
+
+  expect(getByText(/edit task/i)).toBeInTheDocument()
 })
