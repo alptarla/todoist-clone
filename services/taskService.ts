@@ -8,6 +8,7 @@ import {
   Query,
   QueryConstraint,
   setDoc,
+  updateDoc,
   where
 } from 'firebase/firestore'
 import { db } from '../config/firbease'
@@ -20,7 +21,7 @@ export async function getTaskById(id: string): Promise<ITask> {
 }
 
 export async function createTask(task: ITask) {
-  await setDoc(doc(db, 'tasks', task.id), task)
+  await setDoc(doc(db, 'tasks', task.id), { ...task, isCompleted: false })
   return getTaskById(task.id)
 }
 
@@ -37,4 +38,9 @@ export async function getTasks(filters?: FiltersType): Promise<ITask[]> {
 
   const res = await getDocs(refs)
   return res.docs.map(makeResObject)
+}
+
+export async function updateTask(taskId: string, fields: any) {
+  await updateDoc(doc(db, 'tasks', taskId), { ...fields })
+  return getTaskById(taskId)
 }

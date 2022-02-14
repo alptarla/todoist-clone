@@ -4,10 +4,16 @@ import { ITask } from '../../context/TaskContext/types'
 
 interface IProps {
   task: ITask
+  updateTask: (id: string, fields: any) => void
 }
 
-function Task({ task }: IProps) {
-  const [isCompleted, setIsCompleted] = useState(false)
+function Task({ task, updateTask }: IProps) {
+  const [isCompleted, setIsCompleted] = useState(task.isCompleted || false)
+
+  const toggleIsCompleted = () => {
+    setIsCompleted(!isCompleted)
+    updateTask(task.id, { isCompleted: !isCompleted })
+  }
 
   const taskClassNames = classNames(
     'mb-5 flex cursor-pointer items-center gap-2 rounded border border-gray-100 p-3 shadow-sm transition hover:shadow-md',
@@ -21,7 +27,7 @@ function Task({ task }: IProps) {
         type="checkbox"
         name="task"
         defaultChecked={isCompleted}
-        onChange={() => setIsCompleted(!isCompleted)}
+        onChange={toggleIsCompleted}
       />
       <p
         className={classNames('truncate hover:text-clip', {

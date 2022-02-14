@@ -7,8 +7,7 @@ export const initialState: IState = {
     date: DATE_LIST[0].value,
     project: PROJECT_LIST[0].value.name
   },
-  isLoading: false,
-  error: null
+  isLoading: false
 }
 
 function taskReducer(state = initialState, action: ActionType) {
@@ -17,11 +16,6 @@ function taskReducer(state = initialState, action: ActionType) {
       return {
         ...state,
         isLoading: action.payload
-      }
-    case 'SET_ERROR':
-      return {
-        ...state,
-        error: action.payload
       }
     case 'SET_TASKS':
       return {
@@ -37,6 +31,11 @@ function taskReducer(state = initialState, action: ActionType) {
       return {
         ...state,
         filters: action.payload
+      }
+    case 'UPDATE_TASK':
+      return {
+        ...state,
+        tasks: state.tasks.map((task) => (task.id === action.payload.id ? action.payload : task))
       }
     default:
       return state

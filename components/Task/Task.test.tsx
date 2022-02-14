@@ -7,11 +7,13 @@ const sampleTask: ITask = {
   id: 'test-id',
   task: 'test-task',
   date: 'test-date',
-  project: 'test-project'
+  project: 'test-project',
+  isCompleted: false
 }
 
 test('should be toggle completed status', () => {
-  const { getByRole, getByText } = render(<Task task={sampleTask} />)
+  const updateTask = jest.fn()
+  const { getByRole, getByText } = render(<Task task={sampleTask} updateTask={updateTask} />)
 
   const task = getByText(sampleTask.task)
   const taskCheck = getByRole('checkbox')
@@ -20,5 +22,6 @@ test('should be toggle completed status', () => {
 
   userEvent.click(taskCheck)
 
+  expect(updateTask).toHaveBeenCalledWith(sampleTask.id, { isCompleted: !sampleTask.isCompleted })
   expect(task.classList.contains('line-through')).toBeTruthy()
 })
