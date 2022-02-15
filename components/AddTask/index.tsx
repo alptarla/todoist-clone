@@ -1,10 +1,11 @@
 import { useFormik } from 'formik'
 import { nanoid } from 'nanoid'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { Plus } from 'react-feather'
 import { BeatLoader } from 'react-spinners'
 import * as Yup from 'yup'
 import { DATE_LIST, PROJECT_LIST } from '../../constants'
+import useDetectOutside from '../../hooks/useDetectOutside'
 import useTasks from '../../hooks/useTasks'
 import { Input, Select } from '../FormElements'
 import Overlay from '../Overlay'
@@ -15,17 +16,8 @@ interface IProps {
 function AddTask({ setShowAddTask }: IProps) {
   const { createTask, isLoading, setFilters } = useTasks()
 
-  const modelRef = useRef<HTMLDivElement>(null)
-
-  // ** Detect outside click. If user click to outside, close this model
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (modelRef.current?.contains(e.target as Node)) return
-      setShowAddTask(false)
-    }
-    document.addEventListener('click', handler)
-    return () => document.removeEventListener('click', handler)
-  }, [setShowAddTask])
+  const modalRef = useRef<HTMLDivElement>(null)
+  useDetectOutside(modalRef, () => setShowAddTask(false))
 
   const form = useFormik({
     initialValues: {
@@ -63,7 +55,7 @@ function AddTask({ setShowAddTask }: IProps) {
 
   return (
     <Overlay>
-      <div className="w-1/5 rounded bg-white p-5 text-black" ref={modelRef}>
+      <div className="w-1/5 rounded bg-white p-5 text-black" ref={modalRef}>
         <header className="mb-3 flex items-center justify-between">
           <h4>Quick Add Task</h4>
           <button

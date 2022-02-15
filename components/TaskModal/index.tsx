@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Trash } from 'react-feather'
 import { BeatLoader } from 'react-spinners'
 import { ITask } from '../../context/TaskContext/types'
+import useDetectOutside from '../../hooks/useDetectOutside'
 import { Button } from '../FormElements/Buttons'
 import Overlay from '../Overlay'
 
@@ -15,6 +16,9 @@ interface IProps {
 function TaskModal({ closeModal, task, removeTask, updateTask }: IProps) {
   const [updatedTask, setUpdatedTask] = useState(task.task)
   const [isSaving, setIsSaving] = useState(false)
+
+  const modalRef = useRef<HTMLDivElement>(null)
+  useDetectOutside(modalRef, closeModal)
 
   const handleSave = async () => {
     setIsSaving(true)
@@ -32,7 +36,7 @@ function TaskModal({ closeModal, task, removeTask, updateTask }: IProps) {
 
   return (
     <Overlay>
-      <div className="relative w-1/3 rounded bg-white p-5">
+      <div className="relative w-1/3 rounded bg-white p-5" ref={modalRef}>
         <Button
           variant="ghost"
           title="Remove this task"
