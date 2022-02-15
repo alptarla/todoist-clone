@@ -12,12 +12,13 @@
 
 ![app-screenshot](./app-screenshot.png)
 
+[Live Preview](https://todoist-clone-gamma.vercel.app)
+
 ## Setup
 
 ```
 git clone https://github.com/alptarla/todoist-clone.git
 cd todoist-clone
-
 npm install
 npm run dev
 ```
