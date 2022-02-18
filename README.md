@@ -6,7 +6,7 @@
 - NextJs
 - Google Firebase
 - Jest/Testing Library
-- Tailwind css
+- Tailwind CSS
 
 ## Screenshot
 
