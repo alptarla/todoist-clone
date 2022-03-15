@@ -3,7 +3,7 @@
 ## Built-in
 
 - TypeScript
-- NextJs
+- NextJS
 - Google Firebase
 - Jest/Testing Library
 - Tailwind CSS
@@ -12,7 +12,7 @@
 
 ![app-screenshot](./app-screenshot.png)
 
-[Live Preview](https://todoist-clone-gamma.vercel.app)
+[Live App Preview](https://todoist-clone-gamma.vercel.app)
 
 ## Setup
 
